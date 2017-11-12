@@ -10,7 +10,7 @@ ENV JENKINS_HOME /root/jenkins
 ENV JENKINS_VERSION 2.32.1
 
 # GitHub repository to store Jenkins configuration
-ENV GITHUB_USERNAME antonfisher
+ENV GITHUB_USERNAME tianhuil
 ENV GITHUB_CONFIG_REPOSITORY my-jenkins-config
 
 # Make Jenkins home directory
@@ -66,6 +66,9 @@ RUN cd /tmp &&\
 # Jenkins workspace for sharing between containers
 VOLUME $JENKINS_HOME/workspace
 
+# ENTRYPOINT ["/tini", "--"]
+
 # Run init.sh script after container start
 COPY src/init.sh /usr/local/bin/init.sh
-ENTRYPOINT ["/bin/tini", "--", "/usr/local/bin/init.sh"]
+# ENTRYPOINT ["/bin/bash"]
+ENTRYPOINT ["/bin/bash", "/usr/local/bin/init.sh"]
