@@ -1,4 +1,4 @@
-FROM jenkins:2.32.1
+FROM jenkins:2.60.3
 MAINTAINER Anton Fisher <a.fschr@gmail.com>
 
 # root user for Jenkins, need to get access to /var/run/docker.sock (fix this in the future!)
@@ -71,4 +71,4 @@ VOLUME $JENKINS_HOME/workspace
 # Run init.sh script after container start
 COPY src/init.sh /usr/local/bin/init.sh
 # ENTRYPOINT ["/bin/bash"]
-ENTRYPOINT ["/bin/bash", "/usr/local/bin/init.sh"]
+ENTRYPOINT ["/bin/tini", "--", "/usr/local/bin/init.sh"]
